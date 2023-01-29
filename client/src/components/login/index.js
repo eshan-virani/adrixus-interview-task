@@ -41,7 +41,7 @@ const Login = () => {
       setTimeout(() => {
         localStorage.setItem("authtoken", data.SignIn.authtoken);
         localStorage.setItem("userName", data.SignIn.user.name);
-        navigate("/");
+        navigate("/home");
       }, 2000);
     },
   });

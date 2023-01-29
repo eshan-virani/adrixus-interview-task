@@ -38,7 +38,7 @@ const Register = () => {
       setTimeout(() => {
         localStorage.setItem("authtoken", data.token.authtoken);
         localStorage.setItem("userName", registerData.name);
-        navigate("/");
+        navigate("/home");
       }, 2000);
     },
   });
