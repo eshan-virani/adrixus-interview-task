@@ -4,8 +4,7 @@ const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 const schema = require("./Graphql/schema");
 const jwt = require("jsonwebtoken");
-const PORT = 5000;
-const jwtSecretKey = "Demo";
+require('dotenv').config()
 
 require("./config/mongoConnection");
 
@@ -17,7 +16,7 @@ app.use(
   graphqlHTTP((req) => {
     const { auth } = req.headers;
     if (auth) {
-      var { user_id } = jwt.verify(auth, jwtSecretKey);
+      var { user_id } = jwt.verify(auth, process.env.jwtSecretKey);
     }
 
     return {
@@ -32,6 +31,6 @@ app.use(
   })
 );
 
-app.listen(PORT, () => {
-  console.log(`Server will bw running at ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server will bw running at ${process.env.PORT}`);
 });

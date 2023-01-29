@@ -31,7 +31,8 @@ const filter = new GraphQLInputObjectType({
     ageSort: { type: GraphQLBoolean },
     dateSort: { type: GraphQLBoolean },
     email: { type: GraphQLString },
-    limit: { type: GraphQLInt }
+    limit: { type: GraphQLInt },
+    next: { type: GraphQLInt }
   },
 });
 

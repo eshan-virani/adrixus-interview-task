@@ -1,6 +1,6 @@
+require('dotenv').config()
 const { mongoose } = require("mongoose");
-
-mongoose.connect("mongodb://localhost:27017/adrixus-test")
+mongoose.connect(process.env.mongoURL,{ dbName: process.env.dbName })
 
 mongoose.connection.on('connected', () => {
     console.log('Databse connect successfully.');

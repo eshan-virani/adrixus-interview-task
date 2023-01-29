@@ -1,3 +1,4 @@
+require('dotenv').config()
 const graphql = require("graphql");
 const { User } = require("../Model/User");
 const { signup, signin, filter } = require("./mutation");
@@ -10,7 +11,6 @@ const {
   GraphQLString,
 } = graphql;
 const jwt = require("jsonwebtoken");
-const jwtSecretKey = "Demo";
 const bcrypt = require("bcrypt");
 
 //Root Querys
@@ -29,17 +29,17 @@ const RootQuery = new GraphQLObjectType({
           if (filters.ageSort)
             return await User.find({})
               .limit(filters.limit ? filters.limit : 10)
-              .sort({ age: 1 });
+              .sort({ age: 1 }).skip(filters.next)
           if (filters.dateSort)
             return await User.find({})
               .limit(filters.limit ? filters.limit : 10)
-              .sort({ registered: 1 });
+              .sort({ registered: 1 }).skip(filters.next)
           if (filters.email)
             return await User.find({ email: email }).limit(
               filters.limit ? filters.limit : 10
-            );
+            ).skip(filters.next)
         }
-        return await User.find({}).limit(filters.limit ? filters.limit : 10);
+        return await User.find({}).limit(filters.limit ? filters.limit : 10).skip(filters.next)
       },
     },
   },
@@ -93,7 +93,7 @@ const Mutation = new GraphQLObjectType({
               user_id: user._id,
               email: user.email,
             };
-            const jwttoken = jwt.sign(params, jwtSecretKey, {
+            const jwttoken = jwt.sign(params, process.env.jwtSecretKey, {
               expiresIn: "24h",
             });
             return { authtoken: jwttoken, user: user };

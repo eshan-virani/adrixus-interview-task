@@ -29,6 +29,7 @@ const Dashboard = () => {
   const [dateSort, setDateSort] = useState(false);
   var [limit, setLimit] = useState(0);
   const [userdata, setUserdata] = useState();
+  const [index, setIndex] = useState(0);
   var authtoken = localStorage.getItem("authtoken");
 
   useQuery(FilterQuery, {
@@ -42,6 +43,7 @@ const Dashboard = () => {
         ageSort: ageSort,
         dateSort: dateSort,
         limit: limit,
+        next: index,
       },
     },
     onCompleted(data) {
@@ -103,8 +105,16 @@ const Dashboard = () => {
           </tbody>
         </table>
         <SearchBarDiv>
-          <PaginationButton type="submit">previous</PaginationButton>
-          <PaginationButton type="submit">next</PaginationButton>
+          <PaginationButton
+            onClick={() => {
+              index > 0 ? setIndex((index) => index - 10) : setIndex(0);
+            }}
+          >
+            previous
+          </PaginationButton>
+          <PaginationButton onClick={() => setIndex((index) => index + 10)}>
+            next
+          </PaginationButton>
         </SearchBarDiv>
       </div>
     </Table>
