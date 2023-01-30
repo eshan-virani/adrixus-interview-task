@@ -13,9 +13,9 @@ npm run start
 ```
 
 3. Routes 
-    Dashboard Route = http://localhost:3000/home
-    Login Route = http://localhost:3000/
-    Register Route = http://localhost:3000/register
+    - Dashboard Route = http://localhost:3000/home
+    - Login Route = http://localhost:3000/
+    - Register Route = http://localhost:3000/register
 
 
 # === Worked ===
